@@ -27,8 +27,8 @@ public class PessoaService {
 		return pessoaRepository.save(pessoa);		
 	}
 	
-	public void excluirPessoa(Pessoa pessoa) {		
-		pessoaRepository.delete(pessoa);		
+	public void removerPessoa(Long codigo) {		
+		pessoaRepository.deleteById(codigo);		
 	}
 
 }

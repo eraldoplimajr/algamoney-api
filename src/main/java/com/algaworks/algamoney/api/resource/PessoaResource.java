@@ -1,7 +1,6 @@
 package com.algaworks.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -42,13 +41,9 @@ public class PessoaResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<Pessoa> buscarPessoa(@PathVariable Long id) {
 		
-		Optional<Pessoa> optPessoa = pessoaService.buscarPessoaPorId(id);
+		Pessoa pessoa = pessoaService.buscarPessoaPeloCodigo(id);		
 		
-		if(!optPessoa.isPresent()) {
-			return ResponseEntity.notFound().build();		
-		}
-		
-		return ResponseEntity.ok(optPessoa.get());
+		return ResponseEntity.ok(pessoa);
 	}
 	
 	@PostMapping
@@ -72,6 +67,15 @@ public class PessoaResource {
 		Pessoa pessoaBD = pessoaService.atualizar(codigo, pessoa);
 		
 		return ResponseEntity.ok(pessoaBD);			
+				
+	}
+	
+	@PutMapping("/{codigo}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo){
+		
+		pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+		
 				
 	}
 	

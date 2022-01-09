@@ -35,13 +35,7 @@ public class PessoaService {
 	
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {		
 		
-		Optional<Pessoa> optPessoa = pessoaRepository.findById(codigo);
-		
-		if(optPessoa.isEmpty()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-		
-		Pessoa pessoaBD = optPessoa.get();
+		Pessoa pessoaBD = buscarPessoaPeloCodigo(codigo);		
 		
 		BeanUtils.copyProperties(pessoa, pessoaBD, "codigo");
 		pessoaRepository.save(pessoaBD);
@@ -49,4 +43,18 @@ public class PessoaService {
 		return pessoaBD;
 	}
 
+	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+		Pessoa pessoaBD = buscarPessoaPeloCodigo(codigo);
+		pessoaBD.setAtivo(ativo);		
+		pessoaRepository.save(pessoaBD);		
+	}
+
+	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
+		Optional<Pessoa> optPessoa = pessoaRepository.findById(codigo);
+		
+		if(optPessoa.isEmpty()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return optPessoa.get();
+	}
 }

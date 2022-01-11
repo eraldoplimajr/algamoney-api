@@ -1,4 +1,4 @@
-package com.algaworks.algamoney.api;
+package com.algaworks.algamoney.api.service;
 
 import java.util.List;
 import java.util.Optional;

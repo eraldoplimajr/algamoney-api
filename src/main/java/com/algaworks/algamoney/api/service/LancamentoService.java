@@ -29,5 +29,9 @@ public class LancamentoService {
 
 		return optLancamento.get();
 	}
+	
+	public Lancamento incluirLancamento(Lancamento lancamento) {
+		return lancamentoRepository.save(lancamento);
+	}
 
 }
